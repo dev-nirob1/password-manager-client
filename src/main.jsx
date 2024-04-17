@@ -8,7 +8,10 @@ import {
 } from "react-router-dom";
 import Login from './components/Login.jsx';
 import AddPassword from './components/AddPassword.jsx';
-import Home from './components/layout/Home.jsx';
+import MyPassword from './components/MyPassword.jsx';
+import Home from './layout/Home.jsx';
+import ContextProvider from './provider/ContextProvider.jsx';
+import PrivateRoute from './privateRoute/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -17,21 +20,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />
+        element: <PrivateRoute><Home /></PrivateRoute>
 
       },
       {
-        path: '/login',
-        element: <Login />
-      },
-      {
         path: '/add-password',
-        element: <AddPassword />
+        element: <PrivateRoute><AddPassword /></PrivateRoute>
+      },
+      {
+        path: '/my-password',
+        element: <PrivateRoute><MyPassword /></PrivateRoute>
       },
       {
         path: '/login',
         element: <Login />
-      },
+      }
     ]
   },
 ]);
@@ -39,6 +42,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ContextProvider>
+      <RouterProvider router={router} />
+    </ContextProvider>
   </React.StrictMode>,
 )
