@@ -6,7 +6,7 @@ export const AppContext = createContext()
 const auth = getAuth(app)
 
 const ContextProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [user, setUser] = useState(null)
 
 
@@ -31,11 +31,10 @@ const ContextProvider = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
             setLoading(false)
-
-            return () => {
-                return unSubscribe;
-            }
         })
+        return () => {
+            return unSubscribe;
+        }
     }, [])
 
 

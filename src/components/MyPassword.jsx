@@ -1,6 +1,21 @@
-
+import { useQuery } from "@tanstack/react-query";
+import axios from 'axios'
+import { useContext } from "react";
+import { AppContext } from "../provider/ContextProvider";
+import { FaCopy } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 
 const MyPassword = () => {
+    const { user } = useContext(AppContext)
+    const { data: account = [] } = useQuery({
+        queryKey: ['account'],
+        queryFn: async () => {
+            const res = await axios.get(`http://localhost:5000/account/${user?.email}`)
+            console.log(res.data, account)
+            return res.data
+        }
+    })
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-cyan-600 to-cyan-300">
@@ -13,7 +28,7 @@ const MyPassword = () => {
                                 Account
                             </th>
                             <th className="border-b-2 border-cyan-300 px-4 py-2">
-                                Username
+                                Email/Username
                             </th>
                             <th className="border-b-2 border-cyan-300 px-4 py-2">
                                 Password
@@ -23,28 +38,35 @@ const MyPassword = () => {
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr className="text-center text-white text-xs md:text-base">
-                            <td className="border-b border-cyan-300 px-4 py-2">
-                                Account 1
+                    {
+                        account.map(item => <tbody key={item._id}>
+
+                            <tr className="text-center text-white text-xs md:text-base">
+                                <td className="border-b border-cyan-300 px-4 py-2">
+                                    <a className="hover:underline" href={item.websiteLink}>{item.accountName}</a>
                                 </td>
-                            <td className="border-b border-cyan-300 px-4 py-2">
-                                example1
-                            </td>
-                            <td className="border-b border-cyan-300 px-4 py-2">
-                                password1
-                                <button className="ml-4">copy</button>
-                            </td>
-                            <td className="border-b border-cyan-300 px-4 py-2">
-                                <button className="border rounded">
-                                    edit
-                                </button>
-                                <button className="border rounded">
-                                    del
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
+                                <td className="border-b border-cyan-300 px-4 py-2">
+                                    {item.email}
+                                </td>
+                                <td className="border-b border-cyan-300 px-4 py-2">
+                                    <div className="flex justify-center items-center gap-2">
+                                        {item.password}
+                                        <button><FaCopy /></button>
+                                    </div>
+                                </td>
+                                <td className="border-b border-cyan-300 px-4 py-2">
+                                    <div className="flex items-center justify-center gap-1">
+                                        <button className="border rounded">
+                                            <MdEdit size={20} />
+                                        </button>
+                                        <button className="border rounded">
+                                            <MdDelete size={20} />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>)
+                    }
                 </table>
             </div>
         </div>
