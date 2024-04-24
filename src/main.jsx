@@ -19,11 +19,14 @@ import MyPassword from './components/MyPassword.jsx';
 import Home from './layout/Home.jsx';
 import ContextProvider from './provider/ContextProvider.jsx';
 import PrivateRoute from './privateRoute/PrivateRoute.jsx';
+import UpdatePassword from './components/UpdatePassword.jsx';
+import ErrorPage from './components/ErrorPage.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
@@ -37,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: '/my-password',
         element: <PrivateRoute><MyPassword /></PrivateRoute>
+      },
+      {
+        path: '/update-password/:id',
+        element: <PrivateRoute><UpdatePassword /></PrivateRoute>
       },
       {
         path: '/login',

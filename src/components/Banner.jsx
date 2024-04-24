@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 
 const Banner = () => {
     return (
-        <div className="bg-gradient-to-b from-cyan-600 to-cyan-400 text-white py-20 px-4 sm:px-6 lg:px-8">
+        <div className="text-white py-20 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
                 <h1 className="text-4xl sm:text-5xl font-semibold mb-4">Securely Manage Your Passwords</h1>
                 <p className="text-lg sm:text-xl mb-6">Effortlessly store and access your passwords securely with our app.</p>
@@ -25,7 +26,7 @@ const Banner = () => {
                         Securely backup and sync your passwords across all your devices
                     </li>
                 </ul>
-                <button className="bg-yellow-400 hover:bg-yellow-500 text-neutral-800 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300">Get Started</button>
+                    <Link className="bg-yellow-400 hover:bg-yellow-500 text-neutral-800 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300" to="/add-password">Add Account</Link>
             </div>
         </div>
 

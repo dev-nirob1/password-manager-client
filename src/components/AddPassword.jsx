@@ -1,11 +1,12 @@
 // import { useEffect } from "react";
-
+import {useNavigate} from 'react-router-dom'
 import { useContext } from "react";
 import { AppContext } from "../provider/ContextProvider";
+import axios from "axios";
 
 const AddPassword = () => {
   const { user } = useContext(AppContext)
-
+  const navigate = useNavigate()
   const handleSubmit = e => {
     e.preventDefault()
     const form = e.target;
@@ -19,15 +20,15 @@ const AddPassword = () => {
     }
     const account = { websiteLink, accountName, email, password, AddedBy }
 
-    fetch('http://localhost:5000/account',
-      {
-        method: 'put',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(account)
+    axios.put('http://localhost:5000/account', account, { withCredentials: true })
+      .then(res => {
+        if (res.data.
+          acknowledged) {
+          alert('Account Added')
+          navigate('/my-password')
+        }
       }
-    )
+      )
   }
   return (
     <div className="max-w-[1080px] mx-auto rounded px-8 pt-6 pb-8">
