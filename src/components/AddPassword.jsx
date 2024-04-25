@@ -1,12 +1,17 @@
 // import { useEffect } from "react";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useContext } from "react";
 import { AppContext } from "../provider/ContextProvider";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const AddPassword = () => {
-  const { user } = useContext(AppContext)
+  const { user, isShow, setIsShow } = useContext(AppContext)
+
   const navigate = useNavigate()
+
+
   const handleSubmit = e => {
     e.preventDefault()
     const form = e.target;
@@ -20,11 +25,11 @@ const AddPassword = () => {
     }
     const account = { websiteLink, accountName, email, password, AddedBy }
 
-    axios.put('http://localhost:5000/account', account, { withCredentials: true })
+    axios.put(`${import.meta.env.VITE_api_url}/account`, account, { withCredentials: true })
       .then(res => {
         if (res.data.
           acknowledged) {
-          alert('Account Added')
+          toast.success('Account Added', { autoClose: 1500 })
           navigate('/my-password')
         }
       }
@@ -53,7 +58,12 @@ const AddPassword = () => {
           </div>
           <div className="mb-6 flex-1">
             <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-            <input id="password" name="password" type="password" placeholder="******************" className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
+            <div className='relative'>
+              <input id="password" name="password" type={`${isShow ? 'text' : 'password'}`} placeholder="**************" className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
+              <div className='absolute right-4 top-3' onClick={() => setIsShow(!isShow)}>
+                {isShow ? <FaEyeSlash size={17} title='Hide Password'/> : <FaEye size={17} title='Show password' />}
+              </div>
+            </div>
           </div>
         </div>
         <div>

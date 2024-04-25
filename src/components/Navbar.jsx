@@ -6,7 +6,7 @@ import { AppContext } from "../provider/ContextProvider";
 const Navbar = () => {
     const { user } = useContext(AppContext)
     return (
-        <div className="h-16 bg-cyan-600 flex items-center">
+        <div className="h-16 bg-cyan-600 flex items-center px-2">
             <div className="container mx-auto flex justify-between items-center">
                 <div>
                     <Link to='/'> <h1 className="text-3xl font-medium text-white">&lt;Pass<span className="text-teal-300">Man /&gt;</span></h1></Link>

@@ -10,6 +10,7 @@ const ContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
     const [isOpen, setIsOpen] = useState(false)
     const [user, setUser] = useState(null)
+    const [isShow, setIsShow] = useState(false)
 
 
     const facebookProvider = new FacebookAuthProvider()
@@ -58,6 +59,8 @@ const ContextProvider = ({ children }) => {
         setLoading,
         isOpen,
         setIsOpen,
+        isShow,
+        setIsShow,
         logOut
     }
 

@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { AppContext } from "../provider/ContextProvider";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
-    const { googleLogin} = useContext(AppContext)
+    const { googleLogin } = useContext(AppContext)
     const navigate = useNavigate()
-    
+
     // const handleFacbookLogin = ()=> {
     //     facebookLogin()
     //     .then(result => {
@@ -23,18 +25,19 @@ const Login = () => {
     //     })
     // }
 
-    const handleGoogleLogin = ()=> {
+    const handleGoogleLogin = () => {
         googleLogin()
-        .then(result => {
-            const user = result.user
-            if(user){
-                navigate('/')
-            }
-            console.log(user)
-        })
-        .catch(err => {
-            console.log(err.message)
-        })
+            .then(result => {
+                const user = result.user
+                if (user) {
+                    toast('Welcome to PassMan', { autoClose: 1500 })
+                    navigate('/')
+                }
+                // console.log(user)
+            })
+            .catch(err => {
+                console.log(err.message)
+            })
     }
 
     return (
@@ -53,8 +56,8 @@ const Login = () => {
                             <div className="">or</div>
                             <div className="border-b border-2 border-neutral-500 w-full rounded"></div>
                         </div> */}
-                        <button onClick={handleGoogleLogin} className="py-3 w-full font-medium text-gray-100 bg-pink-600 rounded">
-                            Sign in with Google
+                        <button onClick={handleGoogleLogin} className="py-3 w-full font-medium text-gray-100 bg-pink-600 rounded flex items-center justify-center gap-2">
+                           <FaGoogle size={20} /> Sign in with Google
                         </button>
                     </div>
                 </div>
