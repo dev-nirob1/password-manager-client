@@ -36,11 +36,11 @@ const ContextProvider = ({ children }) => {
             const userEmail = currentUser?.email || user?.email
             const loggedUser = { email: userEmail }
             if (currentUser && currentUser?.email) {
-                axios.post('http://localhost:5000/jwt', loggedUser, { withCredentials: true })
+                axios.post(`${import.meta.env.VITE_api_url}/jwt`, loggedUser, { withCredentials: true })
                     .then(data => console.log('token', data))
             }
             else {
-                axios.post('http://localhost:5000/logout', loggedUser, { withCredentials: true })
+                axios.post(`${import.meta.env.VITE_api_url}/logout`, loggedUser, { withCredentials: true })
                     .then(data => { console.log('token response', data) })
             }
             setLoading(false)
